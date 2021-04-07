@@ -8,17 +8,9 @@ if (process.stdin.isTTY) {
   process.stdin.setRawMode(true);
 };
 
-let start = '> ';
-process.stdout.write(start);
-
-let d = {
-    "hello": "hi there",
-    "bye": "see you"
-};
-
 let input = '';
 
-process.stdin.on('keypress', (str, key) => {
+function keylogic(str, key, d, start){
     switch (key.name){
         case 'c':
             if (key.ctrl) {
@@ -63,16 +55,34 @@ process.stdin.on('keypress', (str, key) => {
             break;
     }
 
+    let ln = start + input;
     if (input in d) {
-        let ln = start + input;
         process.stdout.write(`\n${d[input]}`);
         process.stdout.write(ansiEscapes.cursorPrevLine + ansiEscapes.cursorForward(ln.length));
     }
-    else {
-        let ln = start + input;
+    else if ((input.slice(0, -1)) in d || strcheck(key, input, d)) {
         process.stdout.write('\n');
         process.stdout.clearLine();
         process.stdout.cursorTo(0);
         process.stdout.write(ansiEscapes.cursorPrevLine + ansiEscapes.cursorForward(ln.length));
     }
-});
+}
+
+function strcheck(key, input, d){
+    for (i in d){
+        if (input == i.slice(0, -1) && key.name === 'backspace'){
+            return true;
+        }
+        return false;
+    }
+}
+
+function key(d, start=''){
+    start += '> '
+    process.stdout.write(start);
+    process.stdin.on('keypress', (str, key) => {
+        keylogic(str, key, d, start)
+    });
+}
+
+module.exports = key
