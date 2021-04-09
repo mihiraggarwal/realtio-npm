@@ -48,10 +48,12 @@ function keylogic(str, key, d, start){
             }
             break;
         default:
-            try {
-                input += str;
-                process.stdout.write(str);
-            } catch {}
+            if (str) {
+                try {
+                    input += str;
+                    process.stdout.write(str);
+                } catch {}
+            }
             break;
     }
 
@@ -73,11 +75,12 @@ function strcheck(key, input, d){
         if (input == i.slice(0, -1) && key.name === 'backspace'){
             return true;
         }
-        return false;
     }
+    return false;
 }
 
 function key(d, start=''){
+    if (!d) d = {}
     start += '> '
     process.stdout.write(start);
     process.stdin.on('keypress', (str, key) => {
