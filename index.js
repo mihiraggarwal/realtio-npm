@@ -80,12 +80,12 @@ function strcheck(key, input, d){
 }
 
 function key(d, start=''){
-    if (!d) d = {}
-    start += '> '
+    if (!d) throw Error('You need to pass in input and output values');
+    start += '> ';
     process.stdout.write(start);
     process.stdin.on('keypress', (str, key) => {
-        keylogic(str, key, d, start)
+        return keylogic(str, key, d, start);
     });
 }
 
-module.exports = key
+module.exports = key;
