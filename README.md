@@ -28,6 +28,6 @@ Text, if any, to be displayed before the input.
 
 ## Example
 
-![Code snippet](https://raw.githubusercontent.com/mihiraggarwal/npm-realtio/master/assets/demo.png)
-![Demo GIF](https://raw.githubusercontent.com/mihiraggarwal/npm-realtio/master/assets/demo.gif)
+![Code snippet](https://raw.githubusercontent.com/mihiraggarwal/realtio-npm/master/assets/demo.png)
+![Demo GIF](https://raw.githubusercontent.com/mihiraggarwal/realtio-npm/master/assets/demo.gif)
 CLI commands which don't engage any other directory can also be run directly by pressing enter.
