@@ -1,6 +1,6 @@
 {
   "name": "realtio",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple package to take in inputs and display outputs in realtime onto the CLI",
   "main": "index.js",
   "scripts": {
