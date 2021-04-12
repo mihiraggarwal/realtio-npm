@@ -9,6 +9,7 @@ if (process.stdin.isTTY) {
 };
 
 let input = '';
+let diff = 0;
 
 function keylogic(str, key, d, start){
     switch (key.name){
@@ -31,6 +32,16 @@ function keylogic(str, key, d, start){
             break;
         case 'return':
             if (input) {
+                for (let i = 0; i <= diff; i++){
+                    process.stdout.write('\n');
+                    process.stdout.clearLine();
+                    process.stdout.cursorTo(0);
+                }
+                for (let i = 0; i <= diff; i++){
+                    process.stdout.write(ansiEscapes.cursorPrevLine);
+                }
+                process.stdout.write(ansiEscapes.cursorForward((start+input).length))
+
                 exec(input, (err, stdout, stderr) => {
                     if (stderr) {
                         process.stdout.write('\n' + stderr);
@@ -40,8 +51,8 @@ function keylogic(str, key, d, start){
                         process.stdout.write('\n' + stdout);
                         process.stdout.write(start);
                     }
-                    input = '';
                 });
+                input = ''
             }
             else {
                 process.stdout.write('\n' + start);
@@ -59,14 +70,24 @@ function keylogic(str, key, d, start){
 
     let ln = start + input;
     if (input in d) {
+        let tr = process.stdout.columns
+        diff = Math.floor(d[input].length/tr);
         process.stdout.write(`\n${d[input]}`);
-        process.stdout.write(ansiEscapes.cursorPrevLine + ansiEscapes.cursorForward(ln.length));
+        for (let i = 0; i <= diff; i++){
+            process.stdout.write(ansiEscapes.cursorPrevLine)
+        }
+        process.stdout.write(ansiEscapes.cursorForward(ln.length));
     }
     else if ((input.slice(0, -1)) in d || strcheck(key, input, d)) {
-        process.stdout.write('\n');
-        process.stdout.clearLine();
-        process.stdout.cursorTo(0);
-        process.stdout.write(ansiEscapes.cursorPrevLine + ansiEscapes.cursorForward(ln.length));
+        for (let i = 0; i <= diff; i++){
+            process.stdout.write('\n');
+            process.stdout.clearLine();
+            process.stdout.cursorTo(0);
+        }
+        for (let i = 0; i <= diff; i++){
+            process.stdout.write(ansiEscapes.cursorPrevLine);
+        }
+        process.stdout.write(ansiEscapes.cursorForward(ln.length))
     }
 }
 
