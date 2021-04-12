@@ -1,7 +1,7 @@
 {
   "name": "realtio",
   "version": "1.0.0",
-  "description": "A simple module to take in input and display output in realtime onto the CLI",
+  "description": "A simple package to take in inputs and display outputs in realtime onto the CLI",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
