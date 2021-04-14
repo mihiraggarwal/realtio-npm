@@ -5,6 +5,10 @@
 
 A simple node package to take in inputs and display outputs in realtime onto the CLI.
 
+## Why?
+
+To help beginners learn how to use a specific tool, to help reduce errors during user inputs, or to just efficiently display preset outputs without having the user press enter every time.
+
 ## Installation
 
 ```
